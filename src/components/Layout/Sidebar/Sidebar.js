@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 
 import useHttp from '../../../hooks/use-http';
 import { userActions } from '../../../store/user/user-slice';
+import { host } from '../../../store/store';
 
 import styles from './Sidebar.module.css';
 import { RiDashboardFill } from 'react-icons/ri';
@@ -23,7 +24,7 @@ const Sidebar = () => {
 
   const logoutHandler = () => {
     sendRequest({
-      url: 'http://192.168.1.107:5000/logout',
+      url: `${host}/logout`,
       method: 'POST',
     })
       .then(() => {

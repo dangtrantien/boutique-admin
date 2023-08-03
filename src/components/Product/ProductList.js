@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import useHttp from '../../hooks/use-http';
 import Card from '../UI/Card';
+import { host } from '../../store/store';
 
 import styles from './ProductList.module.css';
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
@@ -22,7 +23,7 @@ const ProductList = () => {
     setEnteredSearchKey(e.target.value);
 
     sendRequest({
-      url: `http://192.168.1.107:5000/admin/products/search?keyword=${e.target.value}`,
+      url: `${host}/admin/products/search?keyword=${e.target.value}`,
     })
       .then((result) => {
         if (result.error) {
@@ -51,7 +52,7 @@ const ProductList = () => {
       window.confirm("Are you sure? You won't be able to revert this!") === true
     ) {
       sendRequest({
-        url: `http://192.168.1.107:5000/admin/product/${productId}`,
+        url: `${host}/admin/product/${productId}`,
         method: 'DELETE',
       })
         .then((result) => {
@@ -67,7 +68,7 @@ const ProductList = () => {
     setEnteredSearchKey('');
 
     sendRequest({
-      url: 'http://192.168.1.107:5000',
+      url: host,
     })
       .then((result) => {
         if (result.error) {

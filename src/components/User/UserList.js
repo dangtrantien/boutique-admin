@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import useHttp from '../../hooks/use-http';
 import Card from '../UI/Card';
+import { host } from '../../store/store';
 
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
@@ -23,7 +24,7 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    sendRequest({ url: 'http://192.168.1.107:5000/admin/users' })
+    sendRequest({ url: `${host}/admin/users` })
       .then((result) => {
         if (result.error) {
           return alert(result.message);

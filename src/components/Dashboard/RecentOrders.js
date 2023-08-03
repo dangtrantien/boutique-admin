@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Card from '../UI/Card';
 import useHttp from '../../hooks/use-http';
+import { host } from '../../store/store';
 
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 
@@ -15,7 +16,7 @@ const RecentOrders = (props) => {
 
   useEffect(() => {
     sendRequest({
-      url: 'http://192.168.1.107:5000/admin/recent-orders',
+      url: `${host}/admin/recent-orders`,
     })
       .then((result) => {
         if (result.error) {

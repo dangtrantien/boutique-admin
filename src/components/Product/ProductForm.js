@@ -6,6 +6,7 @@ import Card from '../UI/Card';
 import useHttp from '../../hooks/use-http';
 import { productActions } from '../../store/product/product-slice';
 import { getProduct } from '../../store/product/product-actions';
+import { host } from '../../store/store';
 
 import styles from './ProductForm.module.css';
 
@@ -44,12 +45,12 @@ const ProductForm = () => {
     }
 
     // Add new product
-    let url = 'http://192.168.1.107:5000/admin/product';
+    let url = `${host}/admin/product`;
     let method = 'POST';
 
     // Edit product
     if (location.state) {
-      url = `http://192.168.1.107:5000/admin/product/${location.state.productId}`;
+      url = `${host}/admin/product/${location.state.productId}`;
       method = 'PUT';
     }
 

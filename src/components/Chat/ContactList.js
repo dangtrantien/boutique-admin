@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 import useHttp from '../../hooks/use-http';
+import { host } from '../../store/store';
 
 import styles from './ContactList.module.css';
 
 // ==================================================
 
-const socket = io('http://192.168.1.107:5000', {
+const socket = io(host, {
   withCredentials: true,
   transports: ['websocket'],
 });
@@ -37,7 +38,7 @@ const ContactList = (props) => {
 
   useEffect(() => {
     sendRequest({
-      url: 'http://192.168.1.107:5000/messages',
+      url: `${host}/messages`,
     })
       .then((result) => {
         if (result.error) {

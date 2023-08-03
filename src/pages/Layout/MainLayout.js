@@ -7,6 +7,7 @@ import { userActions } from '../../store/user/user-slice';
 import useHttp from '../../hooks/use-http';
 import NavBar from '../../components/Layout/Navbar/Navbar';
 import Sidebar from '../../components/Layout/Sidebar/Sidebar';
+import { host } from '../../store/store';
 
 // ==================================================
 
@@ -20,7 +21,7 @@ const MainLayout = () => {
     if (!token) {
       return navigate('/signin', { replace: true });
     } else {
-      sendRequest({ url: 'http://192.168.1.107:5000/user' })
+      sendRequest({ url: `${host}/user` })
         .then((result) => {
           if (result.error) {
             return;

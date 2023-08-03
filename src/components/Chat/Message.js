@@ -2,13 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 import useHttp from '../../hooks/use-http';
+import { host } from '../../store/store';
 
 import styles from './Message.module.css';
 import { FaPaperPlane } from 'react-icons/fa';
 
 // ==================================================
 
-const socket = io('http://192.168.1.107:5000', {
+const socket = io(host, {
   withCredentials: true,
   transports: ['websocket'],
 });
@@ -29,7 +30,7 @@ const Message = (props) => {
     e.preventDefault();
 
     sendRequest({
-      url: `http://192.168.1.107:5000/message/${props.roomId}`,
+      url: `${host}/message/${props.roomId}`,
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ const Message = (props) => {
   useEffect(() => {
     if (props.roomId !== '') {
       sendRequest({
-        url: `http://192.168.1.107:5000/message/${props.roomId}`,
+        url: `${host}/message/${props.roomId}`,
       })
         .then((result) => {
           if (result.error) {

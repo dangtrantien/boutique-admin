@@ -1,4 +1,5 @@
 import InfoBoardItem from './InfoBoardItem';
+import { host } from '../../store/store';
 
 import styles from './InfoBoard.module.css';
 import { FiUserPlus, FiDollarSign } from 'react-icons/fi';
@@ -9,7 +10,7 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 const infoList = [
   {
     id: 'i1',
-    url: 'http://192.168.1.107:5000/admin/users',
+    url: `${host}/admin/users`,
     title: 'Clients',
     icon: <FiUserPlus className={styles.icon} />,
     isMoney: false,
@@ -17,21 +18,21 @@ const infoList = [
 
   {
     id: 'i2',
-    url: 'http://192.168.1.107:5000/admin/earnings',
+    url: `${host}/admin/earnings`,
     title: 'Earnings of Month',
     icon: <FiDollarSign className={styles.icon} />,
     isMoney: true,
   },
   {
     id: 'i3',
-    url: 'http://192.168.1.107:5000/admin/balance',
+    url: `${host}/admin/balance`,
     title: 'Balance',
     icon: <FiDollarSign className={styles.icon} />,
     isMoney: true,
   },
   {
     id: 'i4',
-    url: 'http://192.168.1.107:5000/admin/orders',
+    url: `${host}/admin/orders`,
     title: 'New Order',
     icon: <AiOutlineFileAdd className={styles.icon} />,
     isMoney: false,
