@@ -41,6 +41,8 @@ const UserList = () => {
     sendRequest({ url: `${host}/admin/users?page=${page}&limit=9` })
       .then((result) => {
         if (result.error) {
+          setPage((prev) => prev - 1);
+
           return alert(result.message);
         }
 

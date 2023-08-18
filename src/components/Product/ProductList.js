@@ -90,6 +90,10 @@ const ProductList = () => {
           return alert(result.message);
         }
 
+        if (result.length === 0) {
+          setPage((prev) => prev - 1);
+        }
+
         setCurrentProducts(result);
       })
       .catch((err) => console.log(err));
