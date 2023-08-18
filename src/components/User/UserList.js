@@ -11,18 +11,19 @@ import { FaAngleLeft, FaAngleRight } from 'react-icons/fa';
 const UserList = () => {
   const sendRequest = useHttp();
 
-  const [users, setUsers] = useState({});
+  const [totalUser, setTotalUser] = useState(0);
   const [currentUsers, setCurrentUsers] = useState([]);
   const [page, setPage] = useState(1);
 
   const pageChangeHandler = (direction) => {
     if (direction === 'next') {
-      setPage((prev) => (prev === users.result?.length ? 1 : prev + 1));
+      setPage((prev) => prev + 1);
     } else {
-      setPage((prev) => (prev === 1 ? users.result?.length : prev - 1));
+      setPage((prev) => prev - 1);
     }
   };
 
+  // Set total user
   useEffect(() => {
     sendRequest({ url: `${host}/admin/users` })
       .then((result) => {
@@ -30,17 +31,23 @@ const UserList = () => {
           return alert(result.message);
         }
 
-        setUsers(result);
+        setTotalUser(result.length);
       })
       .catch((err) => console.log(err));
   }, [sendRequest]);
 
   // Render value theo page
   useEffect(() => {
-    if (users.result) {
-      setCurrentUsers(users.result[page - 1].results);
-    }
-  }, [users, page]);
+    sendRequest({ url: `${host}/admin/users?page=${page}&limit=9` })
+      .then((result) => {
+        if (result.error) {
+          return alert(result.message);
+        }
+
+        setCurrentUsers(result);
+      })
+      .catch((err) => console.log(err));
+  }, [sendRequest, page]);
 
   return (
     <Card>
@@ -79,12 +86,13 @@ const UserList = () => {
                 <div className='pagination'>
                   <p>
                     1{currentUsers.length > 1 ? `-${currentUsers.length}` : ''}{' '}
-                    of {users.total}
+                    of {totalUser}
                   </p>
 
                   <button
                     type='button'
                     onClick={pageChangeHandler.bind(null, 'prev')}
+                    disabled={page === 1}
                   >
                     <FaAngleLeft />
                   </button>

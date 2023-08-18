@@ -19,7 +19,11 @@ const InfoBoardItem = (props) => {
           return alert(result.message);
         }
 
-        return setTotal(result.total);
+        if (result.total) {
+          setTotal(result.total);
+        } else {
+          setTotal(result.length);
+        }
       })
       .catch((err) => console.log(err));
   }, [sendRequest, props.url]);

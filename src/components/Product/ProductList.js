@@ -15,7 +15,7 @@ const ProductList = () => {
   const navigate = useNavigate();
 
   const [enteredSearchKey, setEnteredSearchKey] = useState('');
-  const [products, setProducts] = useState({});
+  const [totalProduct, setTotalProduct] = useState(0);
   const [currentProducts, setCurrentProducts] = useState([]);
   const [page, setPage] = useState(1);
 
@@ -23,23 +23,23 @@ const ProductList = () => {
     setEnteredSearchKey(e.target.value);
 
     sendRequest({
-      url: `${host}/admin/products/search?keyword=${e.target.value}`,
+      url: `${host}/admin/products/search?keyword=${e.target.value}&page=1&limit=9`,
     })
       .then((result) => {
         if (result.error) {
           return alert(result.message);
         }
 
-        setProducts(result);
+        setCurrentProducts(result);
       })
       .catch((err) => console.log(err));
   };
 
   const pageChangeHandler = (direction) => {
     if (direction === 'next') {
-      setPage((prev) => (prev === products.result?.length ? 1 : prev + 1));
+      setPage((prev) => prev + 1);
     } else {
-      setPage((prev) => (prev === 1 ? products.result?.length : prev - 1));
+      setPage((prev) => prev - 1);
     }
   };
 
@@ -75,17 +75,25 @@ const ProductList = () => {
           return alert(result.message);
         }
 
-        setProducts(result);
+        setTotalProduct(result.length);
       })
       .catch((err) => console.log(err));
   }, [sendRequest]);
 
   // Render value theo page
   useEffect(() => {
-    if (products.result) {
-      setCurrentProducts(products.result[page - 1]?.results);
-    }
-  }, [products, page]);
+    sendRequest({
+      url: `${host}/admin/products/search?keyword=${enteredSearchKey}&page=${page}&limit=9`,
+    })
+      .then((result) => {
+        if (result.error) {
+          return alert(result.message);
+        }
+
+        setCurrentProducts(result);
+      })
+      .catch((err) => console.log(err));
+  }, [sendRequest, enteredSearchKey, page]);
 
   return (
     <Card>
@@ -161,12 +169,13 @@ const ProductList = () => {
                     {currentProducts?.length > 1
                       ? `-${currentProducts?.length}`
                       : ''}{' '}
-                    of {products.total}
+                    of {totalProduct}
                   </p>
 
                   <button
                     type='button'
                     onClick={pageChangeHandler.bind(null, 'prev')}
+                    disabled={page === 1}
                   >
                     <FaAngleLeft />
                   </button>
