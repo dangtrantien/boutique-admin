@@ -12,40 +12,36 @@ import { host } from '../../store/store';
 // ==================================================
 
 const MainLayout = () => {
-  const token = Cookies.get('token');
   const dispatch = useDispatch();
   const sendRequest = useHttp();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
-      return navigate('/signin', { replace: true });
-    } else {
-      sendRequest({ url: `${host}/user` })
-        .then((result) => {
-          if (result.error) {
-            return;
-          }
+    sendRequest({ url: `${host}/user` })
+      .then((result) => {
+        if (result.error) {
+          return navigate('/signin', { replace: true });
+        }
 
-          if (result.role === 'client') {
-            Cookies.remove('token');
+        if (result.role === 'client') {
+          Cookies.remove('token');
 
-            return navigate('/signin', { replace: true });
-          }
+          return navigate('/signin', { replace: true });
+        }
 
-          Object.keys(result).map((key) =>
-            dispatch(
-              userActions.replaceUserState({ name: key, value: result[key] })
-            )
-          );
+        Object.keys(result).map((key) =>
+          dispatch(
+            userActions.replaceUserState({ name: key, value: result[key] })
+          )
+        );
 
-          if (result.role === 'counselor') {
-            return navigate('/chat', { replace: true });
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [token, navigate, sendRequest, dispatch]);
+        if (result.role === 'counselor') {
+          return navigate('/chat', { replace: true });
+        }
+      })
+      .catch((err) => console.log(err));
+    // }
+  }, [sendRequest, dispatch, navigate]);
 
   return (
     <div className='layout-container'>
