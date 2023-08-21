@@ -1,12 +1,11 @@
 import { productActions } from './product-slice';
+import { host } from '../store';
 
 // ==================================================
 
 export const getProduct = (productId) => {
   return async (dispatch) => {
-    const response = await fetch(
-      `http://192.168.1.107:5000/product/${productId}`
-    );
+    const response = await fetch(`${host}/product/${productId}`);
 
     const resData = await response.json();
 
