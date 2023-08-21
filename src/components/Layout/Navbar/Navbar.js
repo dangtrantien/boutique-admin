@@ -1,7 +1,6 @@
 import { Container, Navbar, Nav, Offcanvas } from 'react-bootstrap';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 
 import useHttp from '../../../hooks/use-http';
 import { userActions } from '../../../store/user/user-slice';
@@ -31,9 +30,7 @@ const NavBar = () => {
       .then(() => {
         dispatch(userActions.logout());
 
-        Cookies.remove('token');
-
-        return navigate('/', { replace: true });
+        return navigate('/signin', { replace: true });
       })
       .catch((err) => console.log(err));
   };

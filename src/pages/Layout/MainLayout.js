@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Outlet } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 import { userActions } from '../../store/user/user-slice';
 import useHttp from '../../hooks/use-http';
@@ -20,12 +19,6 @@ const MainLayout = () => {
     sendRequest({ url: `${host}/user` })
       .then((result) => {
         if (result.error) {
-          return navigate('/signin', { replace: true });
-        }
-
-        if (result.role === 'client') {
-          Cookies.remove('token');
-
           return navigate('/signin', { replace: true });
         }
 
