@@ -59,8 +59,6 @@ const ProductList = () => {
 
   // Render value theo page
   useEffect(() => {
-    setEnteredSearchKey('');
-
     sendRequest({
       url: `${host}/admin/products/search?keyword=${enteredSearchKey}&page=${page}&limit=9`,
     })
