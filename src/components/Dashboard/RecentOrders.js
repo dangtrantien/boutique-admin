@@ -81,11 +81,11 @@ const RecentOrders = (props) => {
                     {orders.length}
                   </p>
 
-                  <button type='button' disabled>
+                  <button type='button'>
                     <FaAngleLeft />
                   </button>
 
-                  <button type='button' disabled>
+                  <button type='button'>
                     <FaAngleRight />
                   </button>
                 </div>

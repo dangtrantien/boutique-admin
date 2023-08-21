@@ -19,27 +19,20 @@ const ProductList = () => {
   const [currentProducts, setCurrentProducts] = useState([]);
   const [page, setPage] = useState(1);
 
-  const searchKeyChangeHandler = (e) => {
-    setEnteredSearchKey(e.target.value);
+  // Tổng số page
+  let totalPage = 1;
 
-    sendRequest({
-      url: `${host}/admin/products/search?keyword=${e.target.value}&page=1&limit=9`,
-    })
-      .then((result) => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        setCurrentProducts(result);
-      })
-      .catch((err) => console.log(err));
-  };
+  if (totalProduct > 9) {
+    while (totalPage <= Math.round(totalProduct / 9)) {
+      totalPage++;
+    }
+  }
 
   const pageChangeHandler = (direction) => {
     if (direction === 'next') {
-      setPage((prev) => prev + 1);
+      setPage((prev) => (prev === totalPage ? 1 : prev + 1));
     } else {
-      setPage((prev) => prev - 1);
+      setPage((prev) => (prev === 1 ? totalPage : prev - 1));
     }
   };
 
@@ -64,24 +57,10 @@ const ProductList = () => {
     }
   };
 
+  // Render value theo page
   useEffect(() => {
     setEnteredSearchKey('');
 
-    sendRequest({
-      url: host,
-    })
-      .then((result) => {
-        if (result.error) {
-          return alert(result.message);
-        }
-
-        setTotalProduct(result.length);
-      })
-      .catch((err) => console.log(err));
-  }, [sendRequest]);
-
-  // Render value theo page
-  useEffect(() => {
     sendRequest({
       url: `${host}/admin/products/search?keyword=${enteredSearchKey}&page=${page}&limit=9`,
     })
@@ -90,11 +69,8 @@ const ProductList = () => {
           return alert(result.message);
         }
 
-        if (result.length === 0) {
-          setPage((prev) => prev - 1);
-        }
-
-        setCurrentProducts(result);
+        setTotalProduct(result.total);
+        setCurrentProducts(result.data);
       })
       .catch((err) => console.log(err));
   }, [sendRequest, enteredSearchKey, page]);
@@ -114,7 +90,7 @@ const ProductList = () => {
         type='text'
         placeholder='Enter Search'
         value={enteredSearchKey}
-        onChange={searchKeyChangeHandler.bind(this)}
+        onChange={(e) => setEnteredSearchKey(e.target.value)}
       />
 
       <div className='table-container'>
@@ -179,7 +155,6 @@ const ProductList = () => {
                   <button
                     type='button'
                     onClick={pageChangeHandler.bind(null, 'prev')}
-                    disabled={page === 1}
                   >
                     <FaAngleLeft />
                   </button>

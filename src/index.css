@@ -142,10 +142,6 @@ tfoot td {
   cursor: pointer;
 }
 
-.pagination button:disabled {
-  color: var(--color-gray-200);
-}
-
 .button,
 .button:link,
 .button:visited {
