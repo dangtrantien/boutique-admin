@@ -40,7 +40,6 @@ const MainLayout = () => {
         }
       })
       .catch((err) => console.log(err));
-    // }
   }, [sendRequest, dispatch, navigate]);
 
   return (
