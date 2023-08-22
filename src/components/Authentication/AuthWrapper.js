@@ -1,7 +1,7 @@
 import Card from '../UI/Card';
 
 import styles from './AuthWrapper.module.css';
-import BackgroundImg from '../../assets/banner1.jpg';
+import BackgroundImg from '../../assets/images/banner1.jpg';
 
 // ==================================================
 

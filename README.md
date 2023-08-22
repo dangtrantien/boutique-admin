@@ -69,6 +69,121 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-# Link Deploy
+## Link Deploy
 
 This project was deploy here: [https://boutique-admin.onrender.com](https://boutique-admin.onrender.com)
+
+### This project has following structures:
+
+```
+public
+  ├─ favicon.ico
+  ├─ index.html
+  ├─ logo192.png
+  ├─ logo512.png
+  ├─ manifest.json
+  └─ robots.txt
+src
+  ├─ assets
+  │   └─ images
+  │       └─ banner1.jpg
+  ├─ components
+  │   │─ Authentication
+  │   │   │─ AuthWrapper.js
+  │   │   │─ AuthWrapper.module.css
+  │   │   └─ SigninForm.js
+  │   │─ Chat
+  │   │   │─ Chat.js
+  │   │   │─ Chat.module.css
+  │   │   │─ ContactList.js
+  │   │   │─ ContactList.module.css
+  │   │   │─ Message.js
+  │   │   └─ Message.module.css
+  │   │─ Dashboard
+  │   │   │─ OrderDetail
+  │   │   │   │─ OrderDetail.js
+  │   │   │   │─ OrderDetail.module.css
+  │   │   │   └─ OrderDetailList.js
+  │   │   │─ InfoBoard.js
+  │   │   │─ InfoBoard.module.css
+  │   │   │─ InfoBoardItem.js
+  │   │   │─ InfoBoardItem.module.css
+  │   │   └─ RecentOrders.js
+  │   ├─ Layout
+  │   │   │─ Navbar
+  │   │   │   │─ Navbar.js
+  │   │   │   └─ Navbar.module.css
+  │   │   └─ Sidebar
+  │   │       │─ Sidebar.js
+  │   │       └─ Sidebar.module.css
+  │   ├─ Product
+  │   │   │─ ProductForm.js
+  │   │   │─ ProductForm.module.css
+  │   │   │─ ProductList.js
+  │   │   └─ ProductList.module.css
+  │   ├─ UI
+  │   │   │─ Card.js
+  │   │   │─ Card.module.css
+  │   │   │─ Error.js
+  │   │   │─ Error.module.css
+  │   │   │─ IsLoading.js
+  │   │   └─ IsLoading.module.css
+  │   └─ User
+  │       └─ UserList.js
+  ├─ hooks
+  │   └─ use-http.js
+  │─ pages
+  │   ├─ Auth
+  │   │   └─ Signin.js
+  │   ├─ Dashboard
+  │   │   │─ Dashboard.js
+  │   │   └─ OrderDetail.js
+  │   ├─ Layout
+  │   │   │─ MainLayout.js
+  │   │   └─ MiniLayout.js
+  │   ├─ Product
+  │   │   │─ NewProduct.js
+  │   │   └─ Products.js
+  │   ├─ Chat.js
+  │   └─ Users.js
+  │─ store
+  │   ├─ product
+  │   │   │─ product-actions.js
+  │   │   └─ product-slice.js
+  │   ├─ user
+  │   │   └─ user-slice.js
+  │   └─ store.js
+  │─ App.js
+  │─ index.css
+  └─ index.js
+.gitignore
+package-lock.json
+package.json
+```
+
+- public: Folder contains root HTML for the Website.
+- src: Folder contains main code for building the Website:
+  - .css & .module.css: File CSS contains code for styling the Website.
+  - images: Folder contains image using in the Website.
+  - Authentication: Folder contains file to create structure for the Signin page.
+  - Chat: Folder contains file to create structure for the Chat page.
+  - Dashboard: Folder contains file to create structure for the Dashboard page.
+  - Layout: Folder contains file to create navbar and sidebar for the Website.
+  - Product: Folder contains file to create structure for the Product page.
+  - Card.js: File contains code to create card container.
+  - Error.js: File contains code to display the 404 page.
+  - IsLoading.js: File contains code to create loading status before display a page.
+  - User: Folder contains file to create structure for the User page.
+  - use-http.js: File contains code to fetch data with Hooks.
+  - Signin.js: File contains code to display the Signin page.
+  - Dashboard.js: File contains code to display the Dashboard page.
+  - OrderDetail.js: File contains code to display the Order-detail page.
+  - Layout: Folder contains file to display the layout of the Website.
+  - NewProduct.js: File contains code to display the Add-new-product page.
+  - Products.js: File contains code to display the Product page.
+  - Chat.js: File contains code to display the Chat page.
+  - Users.js: File contains code to display the User page.
+  - store: Folder contains file to storing data with redux for the Website.
+  - App.js & index.js: File contains code to create router path for the Website.
+- .gitignore: File contains code to ignore some folder when pushing project on Github.
+- package.json & package-lock.json: File contains libraries code for building the Website.
